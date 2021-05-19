@@ -10,11 +10,13 @@ def main():
     root.title("Pente")
     root.geometry("760x760")
 
-    label = Label(root, image=getImage(0, 0), width=27, height=27, padx=0, pady=0)
-    label.grid(row=0, column=0)
-    label.bind("<Enter>", enter)
-    label.bind("<Leave>", leave)
-    label.bind("<Button-1>", play)
+    for row in range(19):
+        for column in range(19):
+            label = Label(root, image=getImage(row, column), width=27, height=27, padx=0, pady=0)
+            label.grid(row=row, column=column)
+            label.bind("<Enter>", enter)
+            label.bind("<Leave>", leave)
+            label.bind("<Button-1>", play)
 
     root.mainloop()
 
@@ -23,7 +25,7 @@ def enter(e):
     print("Enter")
     row = e.widget.grid_info()['row']
     column = e.widget.grid_info()['column']
-    e.widget.config(image=getBeadImage(row, column, "Blue"))
+    e.widget.config(image=getBeadImage(row, column, player))
 
 
 def leave(e):
@@ -37,7 +39,7 @@ def play(e):
     print("Play")
     global player
     row = e.widget.grid_info()['row']
-    column = e.widget.grid_info()['column']
+    column = e.widget.grid_info()['column'] 
     e.widget.config(image=getBeadImage(row, column, player))
     e.widget.unbind("<Enter>")
     e.widget.unbind("<Leave>")
